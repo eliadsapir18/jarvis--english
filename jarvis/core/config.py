@@ -281,7 +281,7 @@ _PROVIDER_SECRET_OVERRIDES: ContextVar[Mapping[str, str | None] | None] = Contex
 
 class ProfileConfig(BaseModel):
     name: str = "default"
-    language: str = "auto"
+    language: str = "en"
 
 
 class PersonaConfig(BaseModel):
@@ -591,7 +591,7 @@ class TTSConfig(BaseModel):
     model: str | None = None
     voice_de: str = "Charon"
     voice_en: str = "Charon"
-    language_code: str = "de-DE"
+    language_code: str = "en-US"
     style_prompt: str | None = None
     voice_auto_switch: bool = True
     speed: float = 1.0
