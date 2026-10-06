@@ -9,6 +9,9 @@
 services:
   jarvis:
     build: .
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     image: personal-jarvis:local
     # Bind to the host loopback only — the published port is NOT exposed to the
     # LAN. The Control-API key is the security boundary on the container's
