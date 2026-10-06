@@ -56,7 +56,8 @@ WORKDIR /app
 # [local-voice] extras). An editable install keeps PROJECT_ROOT == /app, so the
 # runtime data dir resolves to the writable /app/data volume below rather than
 # into read-only site-packages.
-COPY pyproject.toml README.md LICENSE NOTICE ./
+COPY pyproject.toml README.md LICENSE NOTICE jarvis.toml.example ./
+COPY docker/entrypoint.sh /usr/local/bin/jarvis-entrypoint
 COPY jarvis ./jarvis
 COPY --from=web /build/jarvis/ui/web/dist ./jarvis/ui/web/dist
 RUN python -m pip install --upgrade pip \
@@ -90,4 +91,5 @@ ENV JARVIS_BIND_HOST=0.0.0.0 \
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=6 \
   CMD curl -fsS http://127.0.0.1:8000/api/health || exit 1
 
+ENTRYPOINT ["/usr/local/bin/jarvis-entrypoint"]
 CMD ["python", "-m", "jarvis.ui.web.launcher", "--headless", "--port", "8000"]
